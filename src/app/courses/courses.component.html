@@ -2,9 +2,7 @@
   <div class="courses-list">
     <mat-card>
       <mat-card-header>
-        <mat-card-title>
-          Course List
-        </mat-card-title>
+        <mat-card-title> Course List </mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <mat-list>
@@ -19,7 +17,9 @@
             <button
               mat-icon-button
               color="warn"
-              (click)="deleteCourse(course.id); $event.stopImmediatePropagation()"
+              (click)="
+                deleteCourse(course.id); $event.stopImmediatePropagation()
+              "
             >
               <mat-icon>delete</mat-icon>
             </button>
@@ -34,39 +34,58 @@
       <mat-card-header>
         <mat-card-title>
           <span *ngIf="selectedCourse?.id; else elseBlock">
-            {{selectedCourse.title | titlecase}}
+            {{ selectedTitle | titlecase }}
           </span>
           <ng-template #elseBlock>Select a Course</ng-template>
         </mat-card-title>
       </mat-card-header>
-      <form #form="ngForm">
-      <mat-card-content>
-        <mat-form-field class="full-width">
-          <input
-          matInput
-          placeholder="Title"
-          [(ngModel)]="selectedCourse.title"
-          name="title"
-          required
-          type="text">
-        </mat-form-field>
-        <mat-form-field class="full-width">
-          <input
-          matInput
-          placeholder="Description"
-          [(ngModel)]="selectedCourse.description"
-          name="description"
-          type="text">
-        </mat-form-field>
-      </mat-card-content>
-      <mat-card-actions>
-        <!-- COURSE ACTIONS -->
-        <button type="button" mat-button (click)="reset()">Cancel</button>
-      </mat-card-actions>
+      <form #form="ngForm" (submit)="saveCourse(selectedCourse)">
+        <mat-card-content>
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              placeholder="Title"
+              [(ngModel)]="selectedCourse.title"
+              name="title"
+              required
+              type="text"
+            />
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              placeholder="Description"
+              [(ngModel)]="selectedCourse.description"
+              name="description"
+              type="text"
+            />
+          </mat-form-field>
+          <pre>
+Percent Complete: {{ selectedCourse.percentComplete / 100 | percent }}</pre
+          >
+          <mat-checkbox
+            [(ngModel)]="selectedCourse.favorite"
+            [checked]="selectedCourse.favorite"
+            name="favorite"
+            >Favorite</mat-checkbox
+          >
+        </mat-card-content>
+        <mat-card-actions>
+          <!-- COURSE ACTIONS -->
+          <button
+            type="submit"
+            [disabled]="form.invalid"
+            mat-button
+            color="primary"
+          >
+            Save
+          </button>
+          <button type="button" mat-button (click)="reset()">Cancel</button>
+        </mat-card-actions>
       </form>
-      <hr>
-      <pre>{{form.value | json}}</pre>
-      <pre>{{form.valid | json}}</pre>
+      <hr />
+      <pre>{{ form.value | json }}</pre>
+      <pre>{{ form.valid | json }}</pre>
     </mat-card>
   </div>
 </div>

@@ -15,6 +15,7 @@ In the `src/app/courses/courses.component.ts` file, complete the following chall
 - Update the form to show `percentComplete`
 - Update the form to show `favorite`
 - BONUS: How can we edit a course without affecting the other representations?
+When selecting a course set a deep copy of the course instead?
 
 **HINT:** `https://material.angular.io/components/categories`
 

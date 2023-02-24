@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Course } from '../common/models/course';
+import { formatPercent } from '@angular/common';
 
 const emptyCourse: Course = {
   id: null,
@@ -7,12 +8,12 @@ const emptyCourse: Course = {
   description: '',
   percentComplete: 0,
   favorite: false,
-}
+};
 
 @Component({
   selector: 'app-courses',
   templateUrl: './courses.component.html',
-  styleUrls: ['./courses.component.scss']
+  styleUrls: ['./courses.component.scss'],
 })
 export class CoursesComponent implements OnInit {
   // 1. Render courses in a list
@@ -25,25 +26,30 @@ export class CoursesComponent implements OnInit {
       title: 'Angular 13 Fundamentals',
       description: 'Learn the fundamentals of Angular 13',
       percentComplete: 26,
-      favorite: true
+      favorite: true,
     },
     {
       id: 2,
       title: 'JavaScript The HARDEST PARTS EVER!',
       description: 'Learn the JavaScript like a pro! with Will',
       percentComplete: 26,
-      favorite: true
-    }
+      favorite: true,
+    },
   ];
   selectedCourse = emptyCourse;
+  selectedTitle = '';
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  saveCourse(course): void {
+    console.log('SAVED', course);
   }
 
   selectCourse(course) {
-    this.selectedCourse = course;
+    this.selectedCourse = { ...course };
+    this.selectedTitle = course.title;
   }
 
   deleteCourse(courseId) {
@@ -51,6 +57,6 @@ export class CoursesComponent implements OnInit {
   }
 
   reset() {
-    this.selectCourse({...emptyCourse});
+    this.selectCourse({ ...emptyCourse });
   }
 }
